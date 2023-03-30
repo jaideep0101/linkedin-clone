@@ -15,8 +15,8 @@ cd linkedin-clone
 # Install dependencies
 npm install
 
-# Create a Firebase project and add your Firebase config object to src/firebase.js
-const firebaseConfig = {
+<h5> # Create a Firebase project and add your Firebase config object to src/firebase.js </h5>
+<p>const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
   databaseURL: "YOUR_DATABASE_URL",
@@ -25,7 +25,7 @@ const firebaseConfig = {
   messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
   appId: "YOUR_APP_ID",
   measurementId: "YOUR_MEASUREMENT_ID",
-};
+};</p>
 
 # Enable the Firebase Authentication and Firestore services in your Firebase project
 #Start the development server
