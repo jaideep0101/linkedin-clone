@@ -19,17 +19,11 @@ function Header() {
     const navigate = useNavigate();
     const [toggle,setToggle] = useState(false);
 
-    // useEffect(()=>{
-    //   if(!authState)
-    //   {
-    //     navigate("/login");
-    //   }
-    // },[authState])
-
   function handleClick(){
     setAuthState(null);
     localStorage.removeItem("isLoggedIn");
     navigate("/");
+    console.log(authState);
   }
 
   return (

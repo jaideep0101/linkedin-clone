@@ -3,7 +3,7 @@ import "./widgets.css"
 import InfoIcon from '@mui/icons-material/Info';
 function Widgets() {
   const [news, setNews] = useState([]);
-  const [error, setError] = useState(null);
+
   useEffect(() => {
     fetch('https://inshorts.deta.dev/news?category=all')
       .then(response => {
@@ -13,7 +13,7 @@ function Widgets() {
         throw new Error('Network response was not ok');
       })
       .then(data => setNews(data.data))
-      .catch(error => setError(error.message));
+    
   }, []);
   return (
     <div className='widget_container'>

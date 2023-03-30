@@ -1,9 +1,9 @@
-import React,{useState} from 'react'
+import React from 'react'
 import { Avatar } from '@mui/material';
 import "./sidebar.css";
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Recent from "../sidebarrecent/Recent";
-import { getAuth } from "firebase/auth";
+
 
 
 function Sidebar() {

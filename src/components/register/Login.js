@@ -22,13 +22,14 @@ signInWithEmailAndPassword(auth, email, password)
     localStorage.setItem("isLoggedIn",JSON.stringify(auth));
     navigate("/home");
     setAuth(auth);
-    
+    console.log(user)
+    console.log(authState)
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    setError("Invalid email or password");
-    console.log(errorMessage);
+    setError(errorMessage);
+    console.log(errorCode);
     
   });
 }
