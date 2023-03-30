@@ -40,8 +40,8 @@ function Register() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setError("Something went wrong");
-        console.log(errorMessage);
+        setError(errorMessage);
+        console.log(errorCode);
       });
   }
   return (

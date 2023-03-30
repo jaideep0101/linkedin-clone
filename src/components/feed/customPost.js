@@ -1,4 +1,4 @@
-import React,{useEffect, useState} from 'react';
+import React,{useState} from 'react';
 import { Avatar } from '@mui/material';
 import  "../posts/posts.css";
 import "../feed/feed.css"
