@@ -1,10 +1,10 @@
 .App{
     background-color: #f3f2ef;
-    
 }
 
 .App_body{
     display: flex;
+    width: 100%;
 }
 
 @media screen and (max-width:850px) {

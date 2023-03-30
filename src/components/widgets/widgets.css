@@ -54,3 +54,9 @@ color:gray;
        margin: 5px;
     }
 }
+
+@media screen and (max-width:500px) {
+    .widget_container{
+     margin: 0;
+    }
+}

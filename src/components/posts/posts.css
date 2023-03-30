@@ -74,4 +74,11 @@ padding:0 15px;
    font-weight:400;
   
 }
-
+@media screen and (max-width:500px) {
+    .post_buttons{
+        padding: 10px 0;
+    }
+    .post_buttons_box{
+     padding:0;
+    }
+}
