@@ -1,5 +1,9 @@
-# LinkedIn clone 
+# Live Project
+https://linkedin-clone-e1yd-git-master-jaideep0101.vercel.app/
 
+<h1> About Project </h1>
+
+# LinkedIn clone 
 LinkedIn is a business and employment-focused social media platform that works through websites and mobile apps. It is now owned by Microsoft. The platform is primarily used for professional networking and career development, and allows jobseekers to post their CVs and employers to post jobs.
 
 # Getting Started
