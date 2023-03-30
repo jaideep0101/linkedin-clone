@@ -16,7 +16,7 @@ function Register() {
     {
       navigate("/home");
     }
-  },[authState]);
+  },[authState,navigate]);
   function handleFormdata(e){
     e.preventDefault();
     const data = new FormData(e.target);
