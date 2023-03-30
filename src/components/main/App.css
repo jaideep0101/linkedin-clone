@@ -1,0 +1,14 @@
+.App{
+    background-color: #f3f2ef;
+    
+}
+
+.App_body{
+    display: flex;
+}
+
+@media screen and (max-width:850px) {
+    .App_body{
+        flex-direction: column;
+    }
+}

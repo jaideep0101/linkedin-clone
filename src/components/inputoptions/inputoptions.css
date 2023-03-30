@@ -1,0 +1,26 @@
+.feed_options{
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+align-items: center;
+margin: 10px 0 15px;
+
+}
+.feed_gallery{
+    display: flex;
+    gap:5px;
+    align-items: center;
+  cursor: pointer;
+}
+.feed_gallery:hover{
+    background-color: whitesmoke;
+    border-radius: 10px;
+}
+.feed_gallery >p{
+    font-weight: 600;
+    font-size: 14px;
+    color: gray;
+}
+#image-upload {
+    display: none;
+  }
