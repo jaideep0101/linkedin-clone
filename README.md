@@ -5,8 +5,7 @@ https://linkedin-clone-e1yd-git-master-jaideep0101.vercel.app/
 LinkedIn is a business and employment-focused social media platform that works through websites and mobile apps. It is now owned by Microsoft. The platform is primarily used for professional networking and career development, and allows jobseekers to post their CVs and employers to post jobs.
 
 # Getting Started
-Prerequisites
-React
+Prerequisites : React
 
 # Installing
 Clone the repository
