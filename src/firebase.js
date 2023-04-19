@@ -4,6 +4,7 @@ import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
     apiKey: "AIzaSyC8N9NbFtqvw59k_BBZwkINzbBN0qNQpso",
     authDomain: "linkedin-clone-41f82.firebaseapp.com",
+    databaseURL: "https://linkedin-clone-41f82-default-rtdb.firebaseio.com",
     projectId: "linkedin-clone-41f82",
     storageBucket: "linkedin-clone-41f82.appspot.com",
     messagingSenderId: "44845939191",
@@ -11,6 +12,9 @@ const firebaseConfig = {
   };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
-export default app;
+
+
+ const auth = getAuth(app);
+ const db =  getFirestore();
+
+ export {auth,db};

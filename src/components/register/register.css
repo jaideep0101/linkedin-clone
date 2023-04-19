@@ -24,6 +24,10 @@ form > input{
     border:1px solid lightgray;
 }
 
+form > input:focus{
+ outline: none;
+}
+
 form>button{
     margin-top: 5px;
     background-color:#0a66c2;
@@ -44,5 +48,7 @@ form>button{
 }
 .error_message{
 margin-top: 100px;
-color:#0a66c2;
+/* color:#0a66c2; */
+color:red;
+text-align: center;
 }

@@ -1,29 +1,31 @@
-import React,{useState} from 'react';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React from 'react';
 import Register from "./components/register/Register"
 import Login from "./components/register/Login";
 import Main from "./components/main/main";
-import AuthContext from "./authContext"
+import {RouterProvider, createBrowserRouter,} from "react-router-dom";
+import MyContext from './context/context';
 
 export default function App() {
-  const [authState,setAuthState] = useState(null);
-  const router = createBrowserRouter([{
-    path:"/home",
-    element:<Main />
-},
-{ 
-path:"/register",
-element:<Register/>
+ 
+const router = createBrowserRouter([
+  {
+    path:"/",
+    element:<Main/>
+  },{
+    path:"login",
+    element:<Login/>
   },
-  { 
-      path:"/",
-      element:<Login/>
-          }
-])
+  {
+    path:"register",
+    element:<Register/>
+  }
+  ])
+
+
 return(
-<AuthContext.Provider value={[authState,setAuthState]}>
- <RouterProvider router={router}></RouterProvider>
-</AuthContext.Provider>
+<MyContext>
+<RouterProvider router={router}/>
+</MyContext>
 )
 } 
 
