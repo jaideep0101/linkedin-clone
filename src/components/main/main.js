@@ -5,8 +5,8 @@ import Sidebar from "../sidebar/Sidebar";
 import Feed from "../feed/feed";
 import Widgets from "../widgets/widgets";
 import { UserContext } from "../../context/context";
-// import { useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { collection, getDocs, orderBy, query,onSnapshot} from "firebase/firestore";
 import { db } from "../../firebase";
 
 
@@ -15,7 +15,7 @@ function Main() {
   const { displayName, email, photoURL, uid } = user;
     const [posts,setPosts] = useState([]);
   
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   console.log("running");
@@ -25,20 +25,27 @@ function Main() {
   //   }else{
   //     console.log("Success");
   //   }
-  // }, [isLoggedIn]);
-
-  async function fetchDate() {
-    const querySnapshot = await getDocs(collection(db, "post"));
-    setPosts([]);
-    querySnapshot.forEach((doc) => {
-     setPosts(prev => [...prev,doc.data()]);
-    })
-    
-  }
+  // }, []);
 
   useEffect(() => {
-    fetchDate();
-  }, [isLoggedIn]);
+    const q = query(collection(db, 'post'), orderBy('timestamp', 'desc'));
+   console.log(q);
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedPosts = [];
+      snapshot.forEach((doc) => {
+        console.log(doc.data());
+        fetchedPosts.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setPosts(fetchedPosts);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
 
 console.log(posts);
@@ -47,7 +54,7 @@ console.log(posts);
       <Header photo={photoURL} />
       <div className="App_body">
         <Sidebar userName={displayName} email={email} photo={photoURL} />
-        <Feed userName={displayName} email={email} photo={photoURL} uid={uid} posts={posts} fetchData={fetchDate}/>
+        <Feed userName={displayName} email={email} photo={photoURL} uid={uid} posts={posts}/>
         <Widgets />
       </div>
     </div>

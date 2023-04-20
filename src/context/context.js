@@ -7,13 +7,14 @@ export const UserContext = createContext("");
 
 function MyContext({ children }) {
   const [isLoggedIn, setLoggedIn] = useState(false);
+  
   const [user,setCurrentUser] = useState({
     displayName :"",
     email:"",
     photoURL:""
   })
 
-  useEffect(() => {
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
@@ -23,9 +24,12 @@ function MyContext({ children }) {
           photoURL:user.photoURL,
           uid
         });
+  setLoggedIn(true);
       }
+
     });
-  }, []);
+    
+
 
   return (
     <UserContext.Provider value={[isLoggedIn, setLoggedIn,user]}>

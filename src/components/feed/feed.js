@@ -5,9 +5,9 @@ import ImageIcon from "@mui/icons-material/Image";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection,updateDoc, serverTimestamp} from "firebase/firestore";
 import Posts from "../posts/posts";
-
+import CustomPost from "./customPost";
 import { db } from "../../firebase";
 // import {collection, getDocs } from "firebase/firestore";
 
@@ -31,8 +31,7 @@ const options = [
     color: "#e16745",
   },
 ];
-function Feed({ userName, email, photo, uid, posts, fetchData }) {
-  console.log(fetchData);
+function Feed({ userName, email, photo, uid, posts,fetchData }) {
   console.log(posts);
   const [post, setPost] = useState({
     photo: "",
@@ -55,8 +54,10 @@ function Feed({ userName, email, photo, uid, posts, fetchData }) {
   // }, [posts]);
 
   function handleChange(e) {
-    const { name, value } = e.target;
-    setPost((prevState) => ({ ...prevState, [name]: value }));
+    const {value}= e.target;
+    setPost({
+      message:value,
+    });
   }
 
   async function handleClick(e) {
@@ -67,12 +68,15 @@ function Feed({ userName, email, photo, uid, posts, fetchData }) {
         userName,
         email,
         photo,
-        message: post.message,
+        message:post.message,
         likes: 0,
         comments: [],
       });
-
       console.log("Document written with ID: ", docRef.id);
+      const updateTimestamp = await updateDoc(docRef, {
+        timestamp: serverTimestamp()
+    });
+    console.log(updateTimestamp);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
