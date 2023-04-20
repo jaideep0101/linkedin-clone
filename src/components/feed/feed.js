@@ -5,8 +5,11 @@ import ImageIcon from "@mui/icons-material/Image";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
+import { addDoc, collection } from "firebase/firestore";
 import Posts from "../posts/posts";
-import CustomPost from "./customPost";
+
+import { db } from "../../firebase";
+// import {collection, getDocs } from "firebase/firestore";
 
 const options = [
   {
@@ -28,38 +31,60 @@ const options = [
     color: "#e16745",
   },
 ];
-function Feed() {
-  const [posts, setPosts] = useState([]);
+function Feed({ userName, email, photo, uid, posts, fetchData }) {
+  console.log(fetchData);
+  console.log(posts);
   const [post, setPost] = useState({
-    name: "Jaideep singh thakru",
-    description: "Web developer",
+    photo: "",
+    userName: "",
+    email: "",
     message: "",
-    photoUrl: "",
-    image:
-      "https://img.freepik.com/free-photo/people-taking-selfie-together-registration-day_23-2149096795.jpg",
     likes: 0,
     comments: [],
   });
+  // const [posts, setPosts] = useState([]);
+  // async function fetchDate() {
+  //   const querySnapshot = await getDocs(collection(db, "post"));
+  //   querySnapshot.forEach((doc) => {
+  //     setPosts((prev) => [...prev, doc.data()]);
+  //   });
+  // }
+
+  // useEffect(() => {
+  //   fetchDate();
+  // }, [posts]);
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setPost({ ...post, [name]: value });
+    setPost((prevState) => ({ ...prevState, [name]: value }));
   }
 
-  function handleClick(e) {
+  async function handleClick(e) {
     e.preventDefault();
-    setPosts((prevValue) => {
-      return [...prevValue, post];
-    });
 
+    try {
+      const docRef = await addDoc(collection(db, "post"), {
+        userName,
+        email,
+        photo,
+        message: post.message,
+        likes: 0,
+        comments: [],
+      });
+
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
     setPost({ message: "" });
+    fetchData();
   }
 
   return (
     <div className="feed">
       <div className="feed_option">
         <div className="feed_container">
-          <Avatar className="feed_avatar" src="" />
+          <Avatar className="feed_avatar" src={photo} />
           <div className="feed_input">
             <form>
               <input
@@ -93,24 +118,8 @@ function Feed() {
           })}
         </div>
       </div>
-      {posts.map((post, index) => {
-        console.log(post);
-        return (
-          <CustomPost
-            key={index}
-            id={index}
-            name={post.name}
-            description={post.description}
-            message={post.message}
-            photoUrl={post.photoUrl}
-            image={post.image}
-            likes={post.likes}
-            comments={post.comments}
-          />
-        );
-      })}
 
-      <Posts />
+      <Posts post={posts} />
     </div>
   );
 }

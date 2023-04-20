@@ -13,8 +13,9 @@ import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/context";
 
-function Header() {
+function Header({photo}) {
   const [isLoggedIn, setLoggedIn] = useContext(UserContext);
+ 
 
   const [toggle, setToggle] = useState(false);
   const auth = getAuth();
@@ -28,6 +29,7 @@ function Header() {
         navigate("/login");
 
         setLoggedIn(false);
+        console.log(isLoggedIn);
       })
       .catch((error) => {
         console.log(error);
@@ -75,7 +77,7 @@ function Header() {
         />
         <div className="logout_container">
           <button className="logout-btn" onClick={handleClick}>
-            <HeaderOptions avatar="" title="me" />
+            <HeaderOptions avatar={photo} title="me" />
           </button>
         </div>
       </div>
@@ -119,7 +121,7 @@ function Header() {
             />
             <div className="logout_container">
               <button className="logout-btn" onClick={handleClick}>
-                <HeaderOptions avatar="" title="me" />
+                <HeaderOptions avatar={photo} title="me" />
               </button>
             </div>
           </div>

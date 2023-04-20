@@ -5,16 +5,16 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import Recent from "../sidebarrecent/Recent";
 
 
-function Sidebar() {
+function Sidebar({userName,email,photo}) {
  
   return (
     <div className="sidebar_container">
        
         <div className='sidebar_top'>
   <img src="https://img.freepik.com/free-vector/watercolor-stains-abstract-background_23-2149107181.jpg?size=626&ext=jpg&ga=GA1.2.1084578324.1671878366&semt=sph" alt="background"/>
-    <Avatar className="sidebar_avatar" src=""/>
-    <h2>userName</h2>
-    <h4>Full stack Web Development</h4>
+    <Avatar className="sidebar_avatar" src={photo}/>
+    <h2>{userName}</h2>
+    <h4>{email}</h4>
     </div>
         <div className='sidebar_stats'>
             <div className='sidebar_stat'>
