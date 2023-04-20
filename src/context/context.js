@@ -7,32 +7,28 @@ export const UserContext = createContext("");
 
 function MyContext({ children }) {
   const [isLoggedIn, setLoggedIn] = useState(false);
-  
-  const [user,setCurrentUser] = useState({
-    displayName :"",
-    email:"",
-    photoURL:""
-  })
 
+  const [user, setCurrentUser] = useState({
+    displayName: "",
+    email: "",
+    photoURL: "",
+  });
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const uid = user.uid;
-        setCurrentUser({
-          displayName:user.displayName,
-          email:user.email,
-          photoURL:user.photoURL,
-          uid
-        });
-  setLoggedIn(true);
-      }
-
-    });
-    
-
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      setCurrentUser({
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        uid,
+      });
+      setLoggedIn(true);
+    }
+  });
 
   return (
-    <UserContext.Provider value={[isLoggedIn, setLoggedIn,user]}>
+    <UserContext.Provider value={[isLoggedIn, setLoggedIn, user]}>
       {children}
     </UserContext.Provider>
   );
