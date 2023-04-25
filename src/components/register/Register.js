@@ -11,7 +11,7 @@ import { UserContext } from "../../context/context";
 
 function Register() {
   const [isLoggedIn, setLoggedIn] = useContext(UserContext);
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
   const [error, setError] = useState("");
   const auth = getAuth();
   const navigate = useNavigate();
@@ -23,8 +23,8 @@ function Register() {
     const password = data.get("password");
     const userName = data.get("username");
     const photoURL = data.get("photoUrl");
-  
-   await createUserWithEmailAndPassword(auth, email, password)
+
+    await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
@@ -33,12 +33,13 @@ function Register() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setError(errorMessage)
-        console.log(errorCode, errorMessage);
+        setError(errorMessage);
+        console.log(errorCode)
+        console.log(errorMessage);
       });
   }
 
-  async function updateCurrentUser(username,photoUrl) {
+  async function updateCurrentUser(username, photoUrl) {
     await updateProfile(auth.currentUser, {
       displayName: username,
       photoURL: photoUrl,
@@ -54,33 +55,9 @@ function Register() {
       });
   }
 
-  //  async function handleFormdata(e) {
-  //     e.preventDefault();
-  //     const data = new FormData(e.target);
-  //     const userName = data.get("username");
-  //     const photoURL = data.get("photoUrl");
-  //     const email = data.get("email");
-  //     const password = data.get("password");
-  //    try{
-  //     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  //     const user = userCredential.user;
-  //     await updateProfile(user,{
-  //         displayName: userName,
-  //         photoURL: photoURL,
-  //   })
-  //   setLoggedIn(true);
-  //   navigate("/");
-  //    }catch(error) {
-  //         const errorCode = error.code;
-  //         const errorMessage = error.message;
-  //         console.log(errorCode);
-  //         setError("Some thing went wrong try again !");
-  //       };
-
-  //   }
   return (
     <div className="register">
-      <p className="error_message">{error}</p>
+      {/* <p className="error_message">{error}</p> */}
       <div className="register_container">
         <div className="register_form_container">
           <img
@@ -115,7 +92,7 @@ function Register() {
               required
               autoComplete="off"
             ></input>
-            <button>Submit</button>
+            <button>Sign in</button>
           </form>
           <p>
             Already have an account{" "}

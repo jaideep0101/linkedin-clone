@@ -1,6 +1,6 @@
 import React from "react";
 import Register from "./components/register/Register";
-import Login from "./components/register/Login";
+import Login from "./components/login/Login";
 import Main from "./components/main/main";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import MyContext from "./context/context";

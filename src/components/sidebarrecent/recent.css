@@ -1,50 +1,48 @@
-.recent_container
-{
-    background-color: #fff;
-    margin-top: 15px;
-    border-radius: 10px;
-    border: 1px solid lightgray;
+.recent_container {
+  background-color: #fff;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
 }
-.recent_stats{
-    padding:10px;
+.recent_stats {
+  padding: 10px;
 }
-.recent{
-    color: gray;
-    font-size: 14px;
+.recent {
+  color: gray;
+  font-size: 14px;
 }
-.recent_groups{
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap:10px;
-    margin: 5px 0;
+.recent_groups {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
 }
-.recent_groups >p{
-    color: gray;
-    font-size: 13px;
-    font-weight: 600;
+.recent_groups > p {
+  color: gray;
+  font-size: 13px;
+  font-weight: 600;
 }
-.recent_icons{
-    color: gray;
-    font-size: 13px;
-  
+.recent_icons {
+  color: gray;
+  font-size: 13px;
 }
-.recent_extras{
-    margin: 10px 0;
-    color:#0a66c2;
-    font-size: 14px;
-    font-weight: 600;
+.recent_extras {
+  margin: 10px 0;
+  color: #0a66c2;
+  font-size: 14px;
+  font-weight: 600;
 }
-.discovermore{
-    border-top:1px solid lightgray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color:gray;
-    font-weight: 700;
-    font-size: 14px;
-    padding:10px;
+.discovermore {
+  border-top: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px;
 }
-.discovermore:hover{
-    background-color: lightgray;
+.discovermore:hover {
+  background-color: lightgray;
 }

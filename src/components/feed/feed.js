@@ -14,7 +14,6 @@ import {
 import Posts from "../posts/posts";
 import { db } from "../../firebase";
 
-
 const options = [
   {
     id: 2,
@@ -45,7 +44,7 @@ function Feed({ userName, email, photo, uid, posts, fetchData }) {
     likes: 0,
     comments: [],
   });
-const [emptyPost,setEmptyPost] = useState("");
+  const [emptyPost, setEmptyPost] = useState("");
   function handleChange(e) {
     const { value } = e.target;
     setPost({
@@ -56,35 +55,34 @@ const [emptyPost,setEmptyPost] = useState("");
   async function handleClick(e) {
     e.preventDefault();
     const follow = Math.floor(Math.random() * (5000 - 500 + 1) + 500);
-    console.log(follow);
-    if(post.message){
-    try {
-      const docRef = await addDoc(collection(db, "post"), {
-        followers: follow,
-        userName,
-        email,
-        photo,
-        message: post.message,
-        likes: 0,
-        comments: [],
-      });
-      console.log("Document written with ID: ", docRef.id);
-      const updateTimestamp = await updateDoc(docRef, {
-        timestamp: serverTimestamp(),
-      });
-      console.log(updateTimestamp);
-    } catch (e) {
-      console.error("Error adding document: ", e);
+    if (post.message) {
+      try {
+        const docRef = await addDoc(collection(db, "post"), {
+          followers: follow,
+          userName,
+          email,
+          photo,
+          message: post.message,
+          likes: 0,
+          comments: [],
+        });
+        console.log("Document written with ID: ", docRef.id);
+        const updateTimestamp = await updateDoc(docRef, {
+          timestamp: serverTimestamp(),
+        });
+        console.log(updateTimestamp);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    } else {
+      setEmptyPost("Post should have some content");
     }
-  }else{
-    setEmptyPost("Post should have some content")
-  }
     setPost({ message: "" });
   }
 
   return (
     <div className="feed">
-    {emptyPost && <p className="empty_post_error">{emptyPost}</p>}
+      {emptyPost && <p className="empty_post_error">{emptyPost}</p>}
       <div className="feed_option">
         <div className="feed_container">
           <Avatar className="feed_avatar" src={photo} />

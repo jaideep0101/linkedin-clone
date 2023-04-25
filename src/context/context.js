@@ -15,25 +15,32 @@ function MyContext({ children }) {
     photoURL: "",
   });
 
-function fetchUser(){
-   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid;
-      setCurrentUser({
-        displayName: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-        uid: uid,
-      });
-  
-    }
-  });
-}
+  // useEffect(()=>{
+  //   onAuthStateChanged(auth, (user) => {
+  //     if (user) {
+  //         setLoggedIn(true);
+
+  //       }
+  //    });
+  // },[])
+
+  function fetchUser() {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        setCurrentUser({
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          uid: uid,
+        });
+      }
+    });
+  }
 
   useEffect(() => {
     fetchUser();
   }, [isLoggedIn]);
-  
 
   return (
     <UserContext.Provider value={[isLoggedIn, setLoggedIn, user]}>

@@ -20,88 +20,105 @@ import { db } from "../../firebase";
 import { UserContext } from "../../context/context";
 import { useContext } from "react";
 
-function Posts({sendPost}) {
-
+function Posts({ sendPost }) {
   const [posts, setPosts] = useState([]);
   const [isComment, setIsComment] = useState(null);
   const [commentInputText, setCommentInput] = useState("");
+  const [error, setError] = useState("");
+
+  const [isLoggedIn, setLoggedIn, user] = useContext(UserContext);
+ 
+
+  useEffect(
+    () => {
+      const q = query(collection(db, "post"), orderBy("timestamp", "desc"));
+     
+      const unsubscribe = onSnapshot(q, (snapshot) => {
+        const fetchedPosts = [];
+        snapshot.forEach((doc) => {
+          fetchedPosts.push({
+            id: doc.id,
+            ...doc.data(),
+          });
+        });
+        setPosts(fetchedPosts);
+      });
+
+      return () => {
+        unsubscribe();
+      };
+    },
+    [],
+    [handleClick],
+    [sendPost]
+  );
+
   
 
-   const [isLoggedIn, setLoggedIn, user]  = useContext(UserContext);
-   console.log(user);
-
- useEffect(() => {
-    const q = query(collection(db, "post"), orderBy("timestamp", "desc"));
-    console.log(q);
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const fetchedPosts = [];
-      snapshot.forEach((doc) => {
-        fetchedPosts.push({
-          id: doc.id,
-          ...doc.data(),
-        });
-      });
-      setPosts(fetchedPosts);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  },[],[handleClick],[sendPost]);
-
-  // console.log(posts);
-
-
-  async function handleLikes(id,likesToAdd) {
-    // console.log(id);
-    const postRef = doc(db, "post",id);
+  async function handleLikes(id, likesToAdd) {
+  
+    const postRef = doc(db, "post", id);
     const postSnapshot = await getDoc(postRef);
     const post = postSnapshot.data();
     const currentLikes = post.likes;
-    const newLikes = currentLikes+likesToAdd;
-// const newLikes = post.likes === 0 ? 1 : 0;
-  await updateDoc(postRef,{likes:newLikes});
-}
+    const newLikes = currentLikes + likesToAdd;
+    // const newLikes = post.likes === 0 ? 1 : 0;
+    await updateDoc(postRef, { likes: newLikes });
+  }
 
-function handleComment(id){
-  if(isComment === null){
-  setIsComment(id);
-}else{
-  setIsComment(null);
-}
-}
+  function handleComment(id) {
+    if (isComment === null) {
+      setIsComment(id);
+    } else {
+      setIsComment(null);
+    }
+  }
 
   async function handleClick(e) {
     e.preventDefault();
-    console.log(isComment);
-    const postRef = doc(db, "post",isComment);
-    const postSnapshot = await getDoc(postRef);
-    const post = postSnapshot.data();
-    const newComment = {comment:commentInputText}
-  await updateDoc(postRef, { comments: arrayUnion(newComment) });
-    console.log(post);
-    setCommentInput("");
+    
+    if (commentInputText !== "") {
+      const postRef = doc(db, "post", isComment);
+      const postSnapshot = await getDoc(postRef);
+      const post = postSnapshot.data();
+      const newComment = { comment: commentInputText };
+      await updateDoc(postRef, { comments: arrayUnion(newComment) });
+      console.log(post);
+      setCommentInput("");
+    } else {
+      setError("Comment should not be empty!");
+    }
   }
 
-  return posts.map(postList => (
+  return posts.map((postList) => (
     <div key={postList.id} className="post_container">
       <div className="post_header">
         <Avatar src={postList.photo} />
         <div className="post_info">
           <h2>{postList.userName}</h2>
-          {postList.followers ?  <p>followers <span>{postList.followers}</span></p>:<p>followers <span>435</span></p>}
-         
+          {postList.followers ? (
+            <p>
+              followers <span>{postList.followers}</span>
+            </p>
+          ) : (
+            <p>
+              followers <span>435</span>
+            </p>
+          )}
         </div>
       </div>
       <div className="post_body">
         <p>{postList.message}</p>
       </div>
-    
+
       <div className="like_container">
         <p>{postList.likes} likes</p>
       </div>
       <div className="post_buttons">
-        <div onClick={() =>handleLikes(postList.id,1)} className="post_buttons_box">
+        <div
+          onClick={() => handleLikes(postList.id, 1)}
+          className="post_buttons_box"
+        >
           <ThumbUpOffAltIcon />
           <p>Like</p>
         </div>
@@ -140,6 +157,7 @@ function handleComment(id){
                 </form>
               </div>
             </div>
+
             {postList.comments.map((comment, index) => {
               return (
                 <div key={index} className="all_comments">

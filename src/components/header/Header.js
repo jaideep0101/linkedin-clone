@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./header.css";
 import HeaderOptions from "../headeroptions/HeaderOptions";
 import SearchIcon from "@mui/icons-material/Search";
@@ -13,29 +13,27 @@ import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/context";
 
-function Header({photo}) {
+function Header({ photo }) {
   const [isLoggedIn, setLoggedIn] = useContext(UserContext);
- 
 
   const [toggle, setToggle] = useState(false);
   const auth = getAuth();
   const navigate = useNavigate();
 
+ 
   function handleClick() {
     signOut(auth)
       .then(() => {
         console.log("successully signOut");
-
-        navigate("/login");
-
         setLoggedIn(false);
-        console.log(isLoggedIn);
+        navigate("/login");
+       
       })
       .catch((error) => {
         console.log(error);
       });
   }
-
+  
   return (
     <div className="header">
       <div className="header_left">

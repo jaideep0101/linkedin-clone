@@ -6,31 +6,49 @@ import Feed from "../feed/feed";
 import Widgets from "../widgets/widgets";
 import { UserContext } from "../../context/context";
 import { useNavigate } from "react-router-dom";
+import Loader from "../loader/loader";
 
 function Main() {
   const [isLoggedIn, setLoggedIn, user] = useContext(UserContext);
   const { displayName, email, photoURL, uid } = user;
-
+  const [photo,setPhoto] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
+  console.log(isLoggedIn);
+console.log(user);
+  useEffect(
+    () => {
       if (displayName !== "") {
-       
-         console.log("welcome");
-         setLoggedIn(true);
+        setLoggedIn(true);
+        setPhoto(photoURL);
+        console.log(photoURL);
+        console.log(displayName);
       } else {
         navigate("/login");
       }
-    },[],[user]);
-
+    },
+    [],
+    [user]
+  );
+console.log(photo);
   return (
     <div className="App">
-      <Header photo={photoURL} />
-      <div className="App_body">
-        <Sidebar userName={displayName} email={email} photo={photoURL} />
-        <Feed userName={displayName} email={email} photo={photoURL} uid={uid} />
-        <Widgets />
-      </div>
+      {!isLoggedIn ? (
+        <Loader />
+      ) : (
+        <>
+          <Header photo={photoURL} />
+          <div className="App_body">
+            <Sidebar userName={displayName} email={email} photo={photoURL} />
+            <Feed
+              userName={displayName}
+              email={email}
+              photo={photoURL}
+              uid={uid}
+            />
+            <Widgets />
+          </div>
+        </>
+      )}
     </div>
   );
 }
