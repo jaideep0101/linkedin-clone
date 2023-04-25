@@ -5,11 +5,15 @@ import ImageIcon from "@mui/icons-material/Image";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
-import { addDoc, collection,updateDoc, serverTimestamp} from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import Posts from "../posts/posts";
-import CustomPost from "./customPost";
 import { db } from "../../firebase";
-// import {collection, getDocs } from "firebase/firestore";
+
 
 const options = [
   {
@@ -31,9 +35,9 @@ const options = [
     color: "#e16745",
   },
 ];
-function Feed({ userName, email, photo, uid, posts,fetchData }) {
-  console.log(posts);
+function Feed({ userName, email, photo, uid, posts, fetchData }) {
   const [post, setPost] = useState({
+    followers: "",
     photo: "",
     userName: "",
     email: "",
@@ -41,51 +45,46 @@ function Feed({ userName, email, photo, uid, posts,fetchData }) {
     likes: 0,
     comments: [],
   });
-  // const [posts, setPosts] = useState([]);
-  // async function fetchDate() {
-  //   const querySnapshot = await getDocs(collection(db, "post"));
-  //   querySnapshot.forEach((doc) => {
-  //     setPosts((prev) => [...prev, doc.data()]);
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   fetchDate();
-  // }, [posts]);
-
+const [emptyPost,setEmptyPost] = useState("");
   function handleChange(e) {
-    const {value}= e.target;
+    const { value } = e.target;
     setPost({
-      message:value,
+      message: value,
     });
   }
 
   async function handleClick(e) {
     e.preventDefault();
-
+    const follow = Math.floor(Math.random() * (5000 - 500 + 1) + 500);
+    console.log(follow);
+    if(post.message){
     try {
       const docRef = await addDoc(collection(db, "post"), {
+        followers: follow,
         userName,
         email,
         photo,
-        message:post.message,
+        message: post.message,
         likes: 0,
         comments: [],
       });
       console.log("Document written with ID: ", docRef.id);
       const updateTimestamp = await updateDoc(docRef, {
-        timestamp: serverTimestamp()
-    });
-    console.log(updateTimestamp);
+        timestamp: serverTimestamp(),
+      });
+      console.log(updateTimestamp);
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+  }else{
+    setEmptyPost("Post should have some content")
+  }
     setPost({ message: "" });
-    fetchData();
   }
 
   return (
     <div className="feed">
+    {emptyPost && <p className="empty_post_error">{emptyPost}</p>}
       <div className="feed_option">
         <div className="feed_container">
           <Avatar className="feed_avatar" src={photo} />

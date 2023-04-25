@@ -11,40 +11,73 @@ import { UserContext } from "../../context/context";
 
 function Register() {
   const [isLoggedIn, setLoggedIn] = useContext(UserContext);
+  console.log(isLoggedIn);
   const [error, setError] = useState("");
   const auth = getAuth();
   const navigate = useNavigate();
 
-  function handleFormdata(e) {
+  async function handleFormdata(e) {
     e.preventDefault();
     const data = new FormData(e.target);
-    const userName = data.get("username");
-    const photoURL = data.get("photoUrl");
     const email = data.get("email");
     const password = data.get("password");
-
-    createUserWithEmailAndPassword(auth, email, password, {
-      displayName: userName,
-      photoURL: photoURL,
-    })
+    const userName = data.get("username");
+    const photoURL = data.get("photoUrl");
+  
+   await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        updateProfile(auth.currentUser, {
-          displayName: userName,
-          photoURL: photoURL,
-        });
-        setLoggedIn(true);
-
-        navigate("/");
+        console.log(user);
+        updateCurrentUser(userName, photoURL);
       })
-
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode);
-        setError("Some thing went wrong try again !");
+        setError(errorMessage)
+        console.log(errorCode, errorMessage);
       });
   }
+
+  async function updateCurrentUser(username,photoUrl) {
+    await updateProfile(auth.currentUser, {
+      displayName: username,
+      photoURL: photoUrl,
+    })
+      .then(() => {
+        console.log("successfullly updatad userProfile");
+        setLoggedIn(true);
+        navigate("/");
+      })
+      .catch((error) => {
+        setError(error);
+        console.log(`Error in updating user profile ${error}`);
+      });
+  }
+
+  //  async function handleFormdata(e) {
+  //     e.preventDefault();
+  //     const data = new FormData(e.target);
+  //     const userName = data.get("username");
+  //     const photoURL = data.get("photoUrl");
+  //     const email = data.get("email");
+  //     const password = data.get("password");
+  //    try{
+  //     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  //     const user = userCredential.user;
+  //     await updateProfile(user,{
+  //         displayName: userName,
+  //         photoURL: photoURL,
+  //   })
+  //   setLoggedIn(true);
+  //   navigate("/");
+  //    }catch(error) {
+  //         const errorCode = error.code;
+  //         const errorMessage = error.message;
+  //         console.log(errorCode);
+  //         setError("Some thing went wrong try again !");
+  //       };
+
+  //   }
   return (
     <div className="register">
       <p className="error_message">{error}</p>

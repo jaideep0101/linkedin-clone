@@ -6,6 +6,7 @@ import { UserContext } from "../../context/context";
 
 function Login() {
   const [isLoggedIn, setLoggedIn] = useContext(UserContext);
+  console.log(isLoggedIn)
   const [error, setError] = useState("");
   const auth = getAuth();
   const navigate = useNavigate();
@@ -18,12 +19,12 @@ function Login() {
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-
+        const user = userCredential.user;  
+        
+        navigate("/");
         setLoggedIn(true);
         console.log(isLoggedIn);
-        navigate("/");
-        
+           
       })
       .catch((error) => {
         const errorCode = error.code;

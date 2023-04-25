@@ -75,6 +75,10 @@ padding:0 15px;
    font-weight:400;
   
 }
+.comment_avatar{
+    width: 35px;
+    height: 35px;
+}
 @media screen and (max-width:500px) {
     .post_buttons{
         padding: 10px 0;

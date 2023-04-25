@@ -9,23 +9,31 @@ function MyContext({ children }) {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   const [user, setCurrentUser] = useState({
+    uid: "",
     displayName: "",
     email: "",
     photoURL: "",
   });
 
-  onAuthStateChanged(auth, (user) => {
+function fetchUser(){
+   onAuthStateChanged(auth, (user) => {
     if (user) {
       const uid = user.uid;
       setCurrentUser({
         displayName: user.displayName,
         email: user.email,
         photoURL: user.photoURL,
-        uid,
+        uid: uid,
       });
-      setLoggedIn(true);
+  
     }
   });
+}
+
+  useEffect(() => {
+    fetchUser();
+  }, [isLoggedIn]);
+  
 
   return (
     <UserContext.Provider value={[isLoggedIn, setLoggedIn, user]}>

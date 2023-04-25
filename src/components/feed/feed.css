@@ -1,7 +1,7 @@
 .feed{
     flex:0.5;
     margin: 20px;
-    
+    position: relative;
 }
 .feed_option{
     display: flex;
@@ -16,6 +16,23 @@
     align-items: center;
     padding:10px 15px;
 }
+.empty_post_error{
+    color: red;
+    position: absolute;
+    animation: message 3s forwards 1;
+}
+@keyframes message {
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
 .feed_options{
     display: flex;
     flex-direction: column;

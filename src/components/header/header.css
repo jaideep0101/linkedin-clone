@@ -39,6 +39,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .logout-btn {
   display: flex;
@@ -48,9 +49,30 @@
 
   border: none;
 }
-.logout-btn:hover {
+/* .logout-btn:hover {
   cursor: pointer;
+} */
+.logout_container:hover::before {
+  content: "Logout";
+  display:block;
+  position:absolute;
+  top: 30%;
+  left:65%;
+ 
+  padding: 5px 10px;
+  background-color: #f1f1f1;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
+
+/* Hide the pop-up box by default */
+.logout_container::before {
+  content: "";
+  display: none;
+}
+
 .toggle_container {
   display: none;
 }
@@ -60,6 +82,11 @@
 @media screen and (max-width: 850px) {
   .header_search {
     display: none;
+  }
+  .logout_container:hover::before {
+    top: 120%;
+    left:-45%;
+   
   }
 }
 @media screen and (max-width: 550px) {
