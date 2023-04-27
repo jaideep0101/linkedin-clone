@@ -6,13 +6,17 @@ import { UserContext } from "../../context/context";
 import hero from "../../assets/hero.jpg";
 
 function Login() {
-  const [isLoggedIn, setLoggedIn] = useContext(UserContext);
+  const [isLoggedIn, setLoggedIn,user] = useContext(UserContext);
   const [error, setError] = useState("");
   const auth = getAuth();
   const navigate = useNavigate();
+  console.log(isLoggedIn)
+console.log(user);
 
-  //  if(isLoggedIn===true) navigate("/")
+  // if(isLoggedIn===true) navigate("/")
+  
 
+console.log(auth.currentUser);
   function handleFormdata(e) {
     e.preventDefault();
     const data = new FormData(e.target);

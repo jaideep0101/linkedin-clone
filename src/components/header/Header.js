@@ -20,18 +20,21 @@ function Header({ photo }) {
   const auth = getAuth();
   const navigate = useNavigate();
 
- 
+//  useEffect(()=>{
+//   setLoggedIn(false);
+//  },[handleClick])
+
   function handleClick() {
-    signOut(auth)
-      .then(() => {
-        console.log("successully signOut");
-        setLoggedIn(false);
-        navigate("/login");
-       
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    signOut(auth).then(() => {
+      console.log(auth);
+
+      setLoggedIn(false);
+      navigate("/login");
+     
+    }).catch((error) => {
+      // An error happened.
+      console.log(error);
+    });
   }
   
   return (

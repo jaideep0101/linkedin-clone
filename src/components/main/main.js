@@ -14,9 +14,13 @@ function Main() {
   const [photo,setPhoto] = useState("");
   const navigate = useNavigate();
   console.log(isLoggedIn);
-console.log(user);
-  useEffect(
-    () => {
+console.log(displayName);
+console.log(email);
+console.log(photoURL);
+console.log(uid);
+
+
+  useEffect(() => {
       if (displayName !== "") {
         setLoggedIn(true);
         setPhoto(photoURL);
@@ -24,11 +28,8 @@ console.log(user);
         console.log(displayName);
       } else {
         navigate("/login");
-      }
-    },
-    [],
-    [user]
-  );
+      }},[],[user]);
+
 console.log(photo);
   return (
     <div className="App">

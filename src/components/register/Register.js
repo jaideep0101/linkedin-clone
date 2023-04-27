@@ -16,6 +16,9 @@ function Register() {
   const auth = getAuth();
   const navigate = useNavigate();
 
+//   console.log(isLoggedIn);
+// console.log(auth.currentUser);
+
   async function handleFormdata(e) {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -28,6 +31,7 @@ function Register() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+       
         updateCurrentUser(userName, photoURL);
       })
       .catch((error) => {
@@ -46,6 +50,7 @@ function Register() {
     })
       .then(() => {
         console.log("successfullly updatad userProfile");
+       
         setLoggedIn(true);
         navigate("/");
       })
@@ -57,7 +62,7 @@ function Register() {
 
   return (
     <div className="register">
-      {/* <p className="error_message">{error}</p> */}
+      {error && <p className="error_message">{error}</p>}
       <div className="register_container">
         <div className="register_form_container">
           <img

@@ -22,12 +22,14 @@ function MyContext({ children }) {
 
   //       }
   //    });
-  // },[])
+  // },[isLoggedIn])
+
 
   function fetchUser() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
+      
         setCurrentUser({
           displayName: user.displayName,
           email: user.email,
@@ -40,7 +42,7 @@ function MyContext({ children }) {
 
   useEffect(() => {
     fetchUser();
-  }, [isLoggedIn]);
+  },[isLoggedIn]);
 
   return (
     <UserContext.Provider value={[isLoggedIn, setLoggedIn, user]}>
