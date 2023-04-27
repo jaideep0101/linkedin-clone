@@ -30,7 +30,7 @@ function Register() {
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        // console.log(user);
        
         updateCurrentUser(userName, photoURL);
       })
@@ -38,8 +38,8 @@ function Register() {
         const errorCode = error.code;
         const errorMessage = error.message;
         setError(errorMessage);
-        console.log(errorCode)
-        console.log(errorMessage);
+        // console.log(errorCode)
+        // console.log(errorMessage);
       });
   }
 
@@ -49,14 +49,14 @@ function Register() {
       photoURL: photoUrl,
     })
       .then(() => {
-        console.log("successfullly updatad userProfile");
+        // console.log("successfullly updatad userProfile");
        
         setLoggedIn(true);
         navigate("/");
       })
       .catch((error) => {
         setError(error);
-        console.log(`Error in updating user profile ${error}`);
+        // console.log(`Error in updating user profile ${error}`);
       });
   }
 

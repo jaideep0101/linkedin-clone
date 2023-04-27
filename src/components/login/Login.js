@@ -10,13 +10,11 @@ function Login() {
   const [error, setError] = useState("");
   const auth = getAuth();
   const navigate = useNavigate();
-  console.log(isLoggedIn)
-console.log(user);
 
   // if(isLoggedIn===true) navigate("/")
   
 
-console.log(auth.currentUser);
+// console.log(auth.currentUser);
   function handleFormdata(e) {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -32,7 +30,7 @@ console.log(auth.currentUser);
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode);
+        // console.log(errorCode);
         setError("Correct Email and Password required !");
       });
   }

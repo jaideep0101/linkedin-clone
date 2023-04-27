@@ -26,14 +26,14 @@ function Header({ photo }) {
 
   function handleClick() {
     signOut(auth).then(() => {
-      console.log(auth);
+      // console.log(auth);
 
       setLoggedIn(false);
       navigate("/login");
      
     }).catch((error) => {
       // An error happened.
-      console.log(error);
+      // console.log(error);
     });
   }
   
